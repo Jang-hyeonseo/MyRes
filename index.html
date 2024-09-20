@@ -1,11 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>자기소개</title>
 </head>
 <body>
-    
+
+<script>
+    // 함수 선언
+    function introduction1() {
+        const name = "장현서";
+        const age = 23;
+        const message = `안녕하세요, 제 이름은 ${name}이고, 나이는 ${age}살입니다.`;
+        document.write(message + "<br>");
+    }
+
+    function introduction2() {
+        const hobby = "프로그래밍";
+        const message = `여가 시간에는 ${hobby}를 즐깁니다.`;
+        document.write(message + "<br>");
+    }
+
+    function introduction3() {
+        const dreamJob = "장현서";
+        const message = `제 꿈은 성공적인 ${dreamJob}가 되는 것입니다.`;
+        document.write(message + "<br>");
+    }
+
+    let counter = 0;
+    setInterval(() => {
+        document.body.innerHTML = ""; 
+        if (counter % 3 === 0) {
+            introduction1();
+        } else if (counter % 3 === 1) {
+            introduction2();
+        } else {
+            introduction3();
+        }
+        counter++;
+    }, 3000);
+
+</script>
+
 </body>
 </html>
