@@ -3,44 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>자기소개</title>
+    <title>My Virtual Terrarium</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
-
-<script>
-    function introduction1() {
-        const name = "장현서";
-        const age = 23;
-        const message = `안녕하세요, 제 이름은 ${name}이고, 나이는 ${age}살입니다.`;
-        document.write(message + "<br>");
-    }
-
-    function introduction2() {
-        const hobby = "프로그래밍";
-        const message = `여가 시간에는 ${hobby}를 즐깁니다.`;
-        document.write(message + "<br>");
-    }
-
-    function introduction3() {
-        const dreamJob = "개발자";
-        const message = `제 꿈은 성공적인 ${dreamJob}가 되는 것입니다..`;
-        document.write(message + "<br>");
-    }
-
-    let counter = 0;
-    setInterval(() => {
-        document.body.innerHTML = ""; 
-        if (counter % 3 === 0) {
-            introduction1();
-        } else if (counter % 3 === 1) {
-            introduction2();
-        } else {
-            introduction3();
-        }
-        counter++;
-    }, 3000);
-
-</script>
-
+    <div class="title">
+        <p>My Terrarium</p>
+    </div>
+    <div class="terrarium-container">
+        <div class="plant-list" id="left-plants">
+            <img src="images/plant1.png" alt="Plant 1" class="plant" draggable="true">
+            <img src="images/plant2.png" alt="Plant 2" class="plant" draggable="true">
+            <img src="images/plant3.png" alt="Plant 3" class="plant" draggable="true">
+            <img src="images/plant4.png" alt="Plant 4" class="plant" draggable="true">
+            <img src="images/plant5.png" alt="Plant 5" class="plant" draggable="true">
+            <img src="images/plant6.png" alt="Plant 6" class="plant" draggable="true">
+            <img src="images/plant7.png" alt="Plant 7" class="plant" draggable="true">
+        </div>
+        <div class="terrarium" id="terrarium">
+            <div class="jar-top"></div>
+            <div class="dirt"></div>
+            <div class="jar-bottom"></div>
+        </div>
+        <div class="plant-list" id="right-plants">
+            <img src="images/plant8.png" alt="Plant 8" class="plant" draggable="true">
+            <img src="images/plant9.png" alt="Plant 9" class="plant" draggable="true">
+            <img src="images/plant10.png" alt="Plant 10" class="plant" draggable="true">
+            <img src="images/plant11.png" alt="Plant 11" class="plant" draggable="true">
+            <img src="images/plant12.png" alt="Plant 12" class="plant" draggable="true">
+            <img src="images/plant13.png" alt="Plant 13" class="plant" draggable="true">
+            <img src="images/plant14.png" alt="Plant 14" class="plant" draggable="true">
+        </div>
+    </div>
+    <script type="text/javascript" src="./js/script.js"></script>
 </body>
 </html>
