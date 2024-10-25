@@ -1,51 +1,70 @@
-var zindexvalue = 100;
+const quotes = [
+  'When you have eliminated the impossible, whatever remains, however improbable, must be the truth.',
+  'There is nothing more deceptive than an obvious fact.',
+  'I ought to know by this time that when a fact appears to be opposed to a long train of deductions it invariably proves to be capable of bearing some other interpretation.',
+  'I never make exceptions. An exception disproves the rule.',
+  'What one man can invent another can discover.',
+  'Nothing clears up a case so much as stating it to another person.',
+  'Education never ends, Watson. It is a series of lessons, with the greatest for the last.',
+];
 
-dragElement(document.getElementById('plant1'));
-dragElement(document.getElementById('plant2'));
-dragElement(document.getElementById('plant3'));
-dragElement(document.getElementById('plant4'));
-dragElement(document.getElementById('plant5'));
-dragElement(document.getElementById('plant6'));
-dragElement(document.getElementById('plant7'));
-dragElement(document.getElementById('plant8'));
-dragElement(document.getElementById('plant9'));
-dragElement(document.getElementById('plant10'));
-dragElement(document.getElementById('plant11'));
-dragElement(document.getElementById('plant12'));
-dragElement(document.getElementById('plant13'));
-dragElement(document.getElementById('plant14'));
+let words = [];
+let wordIndex = 0;
+let startTime = Date.now();
 
+const quoteElement = document.getElementById('quote');
+const messageElement = document.getElementById('message');
+const typedValueElement = document.getElementById('typed-value');
+const startButton = document.getElementById('start');
 
-function dragElement(terrariumElement) {
-	let pos1 = 0,
-		pos2 = 0,
-		pos3 = 0,
-		pos4 = 0;
-	terrariumElement.onpointerdown = pointerDrag;
-	terrariumElement.ondblclick = function() {
-		zindexvalue+=10
-		terrariumElement.style.zIndex = zindexvalue;
-	};
-
-	function pointerDrag(e) {
-		e.preventDefault();
-		pos3 = e.clientX;
-		pos4 = e.clientY;
-		document.onpointermove = elementDrag;
-		document.onpointerup = stopElementDrag;
-	}
-
-	function elementDrag(e) {
-		pos1 = pos3 - e.clientX;
-		pos2 = pos4 - e.clientY;
-		pos3 = e.clientX;
-		pos4 = e.clientY;
-		terrariumElement.style.top = terrariumElement.offsetTop - pos2 + 'px';
-		terrariumElement.style.left = terrariumElement.offsetLeft - pos1 + 'px';
-	}
-
-	function stopElementDrag() {
-		document.onpointerup = null;
-		document.onpointermove = null;
-	}
+function disableInput() {
+  typedValueElement.disabled = true;
+  typedValueElement.removeEventListener('input', handleInput);
 }
+
+function enableInput() {
+  typedValueElement.disabled = false;
+  typedValueElement.addEventListener('input', handleInput);
+}
+
+function handleInput() {
+  const currentWord = words[wordIndex];
+  const typedValue = typedValueElement.value;
+
+  if (typedValue === currentWord && wordIndex === words.length - 1) {
+    const elapsedTime = new Date().getTime() - startTime;
+    const message = `CONGRATULATIONS! You finished in ${elapsedTime / 1000} seconds.`;
+    messageElement.innerText = message;
+    disableInput(); 
+  } else if (typedValue.endsWith(' ') && typedValue.trim() === currentWord) {
+    typedValueElement.value = '';
+    wordIndex++;
+    for (const wordElement of quoteElement.childNodes) {
+      wordElement.className = '';
+    }
+    quoteElement.childNodes[wordIndex].className = 'highlight';
+  } else if (currentWord.startsWith(typedValue)) {
+    typedValueElement.className = '';
+  } else {
+    typedValueElement.className = 'error';
+  }
+}
+
+startButton.addEventListener('click', () => {
+  const quoteIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[quoteIndex];
+  words = quote.split(' ');
+  wordIndex = 0;
+  const spanWords = words.map(function(word) {
+    return `<span>${word} </span>`;
+  });
+  quoteElement.innerHTML = spanWords.join('');
+  quoteElement.childNodes[0].className = 'highlight';
+  messageElement.innerText = '';
+  typedValueElement.value = '';
+  typedValueElement.focus();
+  startTime = new Date().getTime();
+  enableInput();
+});
+
+typedValueElement.addEventListener('input', handleInput);
